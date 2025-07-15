@@ -14,3 +14,17 @@ def generate_pdf(data: dict, command: str) -> None:
     for key, value in data.items():
         pdf.cell(200, 10, txt = f"{key}: {value}", ln = True)
     pdf.output(f"reports/{command}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pdf")
+
+
+def print_ascii_art() -> None:
+    print("""
+                      ░██                      
+                                                
+ ░███████  ░████████  ░██░████████   ░███████  
+░██        ░██    ░██ ░██░██    ░██ ░██    ░██ 
+ ░███████  ░██    ░██ ░██░██    ░██ ░█████████ 
+       ░██ ░██    ░██ ░██░███   ░██ ░██        
+ ░███████  ░██    ░██ ░██░██░█████   ░███████  
+                         ░██                   
+                         ░██                   
+                                                """)
