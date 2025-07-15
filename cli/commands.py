@@ -10,20 +10,23 @@ def cli(ctx, gen_pdf):
 
 @cli.command()
 @click.argument('ip_address', type=str)
+@click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
 @click.pass_context
-def ip(ctx, ip_address):
+def ip(ctx, ip_address, gen_pdf):
     click.echo(f'Running IP reconnaissance for {ip_address}')
-    lookup_ip(ip_address)
+    if gen_pdf:
+        ctx.obj['gen_pdf'] = True
+    lookup_ip(ip_address, ctx)
     if ctx.obj['gen_pdf']:
         click.echo('Generating PDF report...')
 
 @cli.command()
-def domain():
-    click.echo('Running subdomain enumeration')
-
-@cli.command()
-def social():
-    click.echo('Running social reconnaissance')
+@click.argument('first_name', type=str)
+@click.argument('last_name', type=str)
+def social(ctx, first_name, last_name):
+    click.echo(f'Running social reconnaissance for {first_name} {last_name}')
+    if ctx.obj['gen_pdf']:
+        click.echo('Generating PDF report...')
 
 @cli.command()
 def name():

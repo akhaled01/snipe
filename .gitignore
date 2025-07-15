@@ -8,3 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Reports
+reports
+
+PLAN.md

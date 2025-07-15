@@ -1,7 +1,9 @@
 from rich.traceback import install
 from rich.table import Table
 from rich.console import Console
+from osint.utils import generate_pdf
 import requests
+import click
 import rich
 import re
 
@@ -21,7 +23,7 @@ def _display_table(data: dict) -> None:
     console = Console()
     console.print(table)
 
-def lookup_ip(ip: str) -> dict | None:
+def lookup_ip(ip: str, ctx: click.Context) -> dict | None:
     """
     Lookup IP information using ipinfo.io API.
     Args:
@@ -37,6 +39,8 @@ def lookup_ip(ip: str) -> dict | None:
         response.raise_for_status()
         data = response.json()
         _display_table(data)
+        if ctx.obj['gen_pdf']:
+            generate_pdf(data, 'ip')
         return data
     except Exception as e:
         rich.print(f"Error: {e}")
