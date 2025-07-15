@@ -1,6 +1,4 @@
-def main():
-    print("Hello from snipe!")
-
+from cli.commands import cli
 
 if __name__ == "__main__":
-    main()
+    cli()
