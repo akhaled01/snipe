@@ -23,17 +23,18 @@ def _display_table(data: dict) -> None:
     console = Console()
     console.print(table)
 
-def lookup_ip(ip: str, ctx: click.Context) -> dict | None:
+def lookup_ip(ip: str, ctx: click.Context) -> None:
     """
     Lookup IP information using ipinfo.io API.
     Args:
         ip (str): IP address to lookup.
+        ctx (click.Context): Click context object.
     Returns:
-        dict | None: Dictionary containing IP information or None if an error occurred.
+        None
     """
     if not _validate_ip_format(ip):
         rich.print(f"Error: Invalid IP address format: {ip}")
-        return None
+        return
     try:
         response = requests.get(f"https://ipinfo.io/{ip}")
         response.raise_for_status()
@@ -41,7 +42,6 @@ def lookup_ip(ip: str, ctx: click.Context) -> dict | None:
         _display_table(data)
         if ctx.obj['gen_pdf']:
             generate_pdf(data, 'ip')
-        return data
     except Exception as e:
         rich.print(f"Error: {e}")
-        return None
+        return

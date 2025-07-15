@@ -1,4 +1,5 @@
 from osint.utils import print_ascii_art
+from osint.social import lookup_social
 from osint.ip import lookup_ip
 import click
 
@@ -15,25 +16,28 @@ def cli(ctx, gen_pdf):
 @click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
 @click.pass_context
 def ip(ctx, ip_address, gen_pdf):
-    click.echo(f'Running IP reconnaissance for {ip_address}', color=True)
     if gen_pdf:
         ctx.obj['gen_pdf'] = True
     lookup_ip(ip_address, ctx)
-    if ctx.obj['gen_pdf']:
-        click.echo('Generating PDF report...')
 
 @cli.command()
-@click.argument('first_name', type=str)
-@click.argument('last_name', type=str)
-def social(ctx, first_name, last_name):
-    click.echo(f'Running social reconnaissance for {first_name} {last_name}')
-    if ctx.obj['gen_pdf']:
-        click.echo('Generating PDF report...')
+@click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
+@click.option('--detailed', is_flag=True, help='Detailed information')
+@click.argument('username', type=str)
+@click.pass_context
+def social(ctx, username, gen_pdf, detailed):
+    if gen_pdf:
+        ctx.obj['gen_pdf'] = True
+    lookup_social(username, ctx, detailed)
 
 @cli.command()
-def name():
-    click.echo('Running name reconnaissance')
+@click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
+def name(ctx, gen_pdf):
+    if gen_pdf:
+        ctx.obj['gen_pdf'] = True
 
 @cli.command()
-def server():
-    click.echo('Running Api interface')
+@click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
+def server(ctx, gen_pdf):
+    if gen_pdf:
+        ctx.obj['gen_pdf'] = True
