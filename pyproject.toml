@@ -13,4 +13,4 @@ snipe = "cli.commands:cli"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["cli*", "api*", "osint*"]
+include = ["cli*", "osint*"]

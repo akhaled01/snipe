@@ -127,7 +127,7 @@ def lookup_social(username: str, ctx: click.Context, detailed: bool) -> None:
         "GitHub": _lookup_github,
         "Dev.to": _lookup_devto,
         "Instagram": _lookup_instagram,
-        # "Twitter": _lookup_twitter, # this is rate limited, so will stay commented out for now
+        # "Twitter": _lookup_twitter, # this is rate limited, so will stay commented out till audit
         "Reddit": _lookup_reddit,
     }
 

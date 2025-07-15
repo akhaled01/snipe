@@ -1,5 +1,6 @@
 from osint.utils import print_ascii_art
 from osint.social import lookup_social
+from osint.info import name_to_contact
 from osint.ip import lookup_ip
 import click
 
@@ -32,12 +33,10 @@ def social(ctx, username, gen_pdf, detailed):
 
 @cli.command()
 @click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
-def name(ctx, gen_pdf):
+@click.argument('full_name', type=str, required=True)
+@click.option('--location', type=str, default="", help='Optional location')
+@click.pass_context
+def name(ctx, gen_pdf, full_name, location):
     if gen_pdf:
         ctx.obj['gen_pdf'] = True
-
-@cli.command()
-@click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
-def server(ctx, gen_pdf):
-    if gen_pdf:
-        ctx.obj['gen_pdf'] = True
+    name_to_contact(full_name, location, gen_pdf)
