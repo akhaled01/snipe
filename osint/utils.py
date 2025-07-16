@@ -1,6 +1,7 @@
 from datetime import datetime
 from fpdf import FPDF
 import dotenv
+import faker
 import os
 
 def create_report_dir() -> None:
@@ -19,6 +20,15 @@ def generate_pdf(data: dict, command: str) -> None:
 
 def load_env() -> None:
     dotenv.load_dotenv()
+
+def gen_rand_phone():
+    fake = faker.Faker()
+    return fake.numerify("###-###-####")
+
+
+def gen_rand_address():
+    fake = faker.Faker()
+    return fake.address()
 
 
 def print_ascii_art() -> None:

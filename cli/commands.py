@@ -34,9 +34,8 @@ def social(ctx, username, gen_pdf, detailed):
 @cli.command()
 @click.option('--gen-pdf', is_flag=True, help='Generate PDF report')
 @click.argument('full_name', type=str, required=True)
-@click.option('--location', type=str, default="", help='Optional location')
 @click.pass_context
-def name(ctx, gen_pdf, full_name, location):
+def name(ctx, gen_pdf, full_name):
     if gen_pdf:
         ctx.obj['gen_pdf'] = True
-    name_to_contact(full_name, location, gen_pdf)
+    name_to_contact(full_name, gen_pdf)
